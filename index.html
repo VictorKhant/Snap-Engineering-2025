@@ -4,28 +4,73 @@
     <title>LA TV Shows | Home</title>
     <meta name="description" content="A Catalog of Shows Set in Los Angeles" />
     <link rel="stylesheet" href="style.css" />
-    <script type="text/javascript" src="scripts.js"></script>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script type="module" src="scripts.js"></script>
   </head>
 
   <body>
+    <!-- NavBar Start -->
+    <nav class="navbar">
+      <div class="navdiv">
+        <div class="logo">
+          <a href="index.html">NBA Stats</a>
+        </div>
+        <ul class="navitems">
+          <li>
+            <a href="index.html">Home</a>
+          </li>
+          <li>
+            <a href="https://www.snapacademies.com/" target="_blank">About</a>
+          </li>
+          <button>
+            <a href="mailto:victor.mkhant@gmail.com">Contact</a>
+          </button>
+        </ul>
+      </div>
+    </nav>
+    <!-- NavBar End -->
+    
+    <!-- Title Start -->
     <header class="main-header">
-      <h1 class="title">LA TV Shows</h1>
+      <h1 class="title">History of Current NBA Legends</h1>
     </header>
+    <!-- Title End -->
+    
+    <!-- Search Start -->
+    <form>
+      <div class="search">
+        <span class="search-icon material-symbols-outlined">search</span>
+        <input id="search-input" type="search" placeholder="Search a NBA Player">
+      </div>
+    </form>
+    <!-- Search End -->
+    
+    <!-- Filter Start -->
+    <div class="filter">
+      <h3 class="minititle">Filter by Position</h3>
+      <button class="filterbtn">Forward</button>
+      <button class="filterbtn">Center</button>
+      <button class="filterbtn">Guard</button>
+      <button class="filterbtn">Center-Forward</button>
+      <button class="filterbtn">Forward-Center</button>
+      <button class="filterbtn">Forward-Guard</button>
+    </div>
+    <!-- Filter End -->
+    
+    <!-- Cards Start -->
     <div id="card-container"></div>
-    <div class="card" style="display: none">
+    <div class="card">
       <div class="card-content">
-        <h2>TV Show Title</h2>
-        <img src="" alt="TV Show Poster" />
+        <h2>Player Name</h2>
+        <img src="" alt="Player's Headshot" />
         <ul>
-          <li>Bullet Point 1</li>
-          <li>Bullet Point 2</li>
-          <li>Bullet Point 3</li>
+          <li>Position</li>
+          <li>Age</li>
+          <li>Draft Year</li>
         </ul>
       </div>
     </div>
-    <div class="footer">
-      <button onclick="quoteAlert();">Get A Quote!</button>
-      <button onclick="removeLastCard();">Remove A Card!</button>
-    </div>
+    <!-- Cards End -->
   </body>
 </html>

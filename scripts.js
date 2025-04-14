@@ -23,75 +23,104 @@
  *
  */
 
-const FRESH_PRINCE_URL =
-  "https://upload.wikimedia.org/wikipedia/en/3/33/Fresh_Prince_S1_DVD.jpg";
-const CURB_POSTER_URL =
-  "https://m.media-amazon.com/images/M/MV5BZDY1ZGM4OGItMWMyNS00MDAyLWE2Y2MtZTFhMTU0MGI5ZDFlXkEyXkFqcGdeQXVyMDc5ODIzMw@@._V1_FMjpg_UX1000_.jpg";
-const EAST_LOS_HIGH_POSTER_URL =
-  "https://static.wikia.nocookie.net/hulu/images/6/64/East_Los_High.jpg";
-
-// This is an array of strings (TV show titles)
-let titles = [
-  "Fresh Prince of Bel Air",
-  "Curb Your Enthusiasm",
-  "East Los High",
-];
-// Your final submission should have much more data than this, and
-// you should use more than just an array of strings to store it all.
+//Importing data from Json
+import data from './data/data.js';
 
 // This function adds cards the page to display the data in the array
 function showCards() {
+  let filteredData = data;
   const cardContainer = document.getElementById("card-container");
   cardContainer.innerHTML = "";
   const templateCard = document.querySelector(".card");
 
-  for (let i = 0; i < titles.length; i++) {
-    let title = titles[i];
+  const searchText = document.getElementById("search-input").value;
+  filteredData = searchCards(filteredData, searchText);
 
-    // This part of the code doesn't scale very well! After you add your
-    // own data, you'll need to do something totally different here.
-    let imageURL = "";
-    if (i == 0) {
-      imageURL = FRESH_PRINCE_URL;
-    } else if (i == 1) {
-      imageURL = CURB_POSTER_URL;
-    } else if (i == 2) {
-      imageURL = EAST_LOS_HIGH_POSTER_URL;
-    }
+  const clicked_filter = document
+    .querySelector(".filter")
+    .querySelector(".clicked");
+  const filter_type = clicked_filter ? clicked_filter.textContent : null;
+  filteredData = filterCards(filteredData, filter_type);
+
+  for (let i = 0; i < filteredData.length; i++) {
+    let cardInfo = filteredData[i];
 
     const nextCard = templateCard.cloneNode(true); // Copy the template card
-    editCardContent(nextCard, title, imageURL); // Edit title and image
+    editCardContent(nextCard, cardInfo); // Edit title and image
     cardContainer.appendChild(nextCard); // Add new card to the container
   }
 }
 
-function editCardContent(card, newTitle, newImageURL) {
+function editCardContent(card, newCardInfo) {
   card.style.display = "block";
 
   const cardHeader = card.querySelector("h2");
-  cardHeader.textContent = newTitle;
+  cardHeader.textContent = newCardInfo.fname + " " + newCardInfo.lname;
 
   const cardImage = card.querySelector("img");
-  cardImage.src = newImageURL;
-  cardImage.alt = newTitle + " Poster";
+  cardImage.src = "./data/img/" + newCardInfo.playerid + ".png";
+  cardImage.alt = newCardInfo.fname + "'s Headshot";
 
-  // You can use console.log to help you debug!
-  // View the output by right clicking on your website,
-  // select "Inspect", then click on the "Console" tab
-  console.log("new card:", newTitle, "- html: ", card);
+  const cardStats = card.querySelectorAll("li");
+  cardStats[0].textContent = "Position: " + newCardInfo.position;
+  cardStats[1].textContent = "Age: " + calculateAge(newCardInfo.birthday);
+  cardStats[2].textContent = "Draft Year: " + newCardInfo.draft_year;
 }
 
-// This calls the addCards() function when the page is first loaded
-document.addEventListener("DOMContentLoaded", showCards);
+function calculateAge(birthday) {
+  const today = new Date();
+  const birthDate = new Date(birthday);
 
-function quoteAlert() {
-  console.log("Button Clicked!");
-  alert(
-    "I guess I can kiss heaven goodbye, because it got to be a sin to look this good!"
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  const dayDiff = today.getDate() - birthDate.getDate();
+
+  if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+    age--;
+  }
+  return age;
+}
+
+function searchCards(dataArr, user_input) {
+  if (user_input.length === 0) {
+    return dataArr;
+  }
+  return dataArr.filter((player) =>
+    (player.fname + " " + player.lname)
+      .toLowerCase()
+      .includes(user_input.toLowerCase())
   );
 }
 
-function removeLastCard() {
-  titles.pop(); // Remove last item in titles array
-  showCards(); // Call showCards again to refresh
+function filterCards(dataArr, clicked) {
+  if (clicked === null) return dataArr;
+  return dataArr.filter(
+    (player) => player.position.toLowerCase() === clicked.toLowerCase()
+  );
 }
+
+let filterbtns = document.querySelectorAll(".filter button");
+
+filterbtns.forEach(function (button) {
+  button.addEventListener("click", function () {
+    const currentlyClicked = document.querySelector(".filter .clicked");
+
+    if (currentlyClicked === button) {
+      button.classList.remove("clicked");
+    } else {
+      if (currentlyClicked) {
+        currentlyClicked.classList.remove("clicked");
+      }
+      button.classList.add("clicked");
+    }
+    showCards();
+  });
+});
+
+// This calls the showCards() function when the page is first loaded
+document.addEventListener("DOMContentLoaded", showCards);
+
+// Detecting input in search box
+document.getElementById("search-input").addEventListener("input", function () {
+  showCards();
+});

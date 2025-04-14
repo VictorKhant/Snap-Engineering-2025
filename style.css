@@ -2,40 +2,46 @@ html,
 body {
   margin: 0;
   padding: 0;
-}
-
-.main-header {
-  background-color: rgba(0, 0, 0, 0.3);
-  padding-bottom: 10px;
-}
-
-.title {
-  text-align: center;
-  margin: 0;
-  font-size: 8em;
-  font-family: "Helvetica";
-  font-weight: normal;
+  background-color: #1A242D;
   color: white;
 }
 
+* {
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Trebuchet MS', sans-serif;
+}
+
+/* Title Styling */
+.title {
+  text-align: center;
+  margin-top: 1em;
+  padding: 10px;
+  font-size: 4em;
+  font-weight: normal;
+}
+
+/* Card Styling */
 #card-container {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   margin: 20px;
 }
 
 .card {
+  display: none;
   width: 300px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
   margin: 5px;
 }
 
 .card-content {
   padding: 20px;
   font-family: "Verdana";
-  color: #777;
+  color: white;
 }
 
 .card-content h2 {
@@ -45,26 +51,152 @@ body {
 
 .card img {
   width: 100%;
+  min-width: 260px;
+  min-height: 190px;
   height: auto;
 }
 
-.footer {
-  display: flex;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.3);
-  padding: 10px;
+.card-content ul li {
+  list-style: none;
+  padding: 4px 6px;
 }
 
-button {
-  text-align: center;
-  background-color: #666;
-  border: none;
-  padding-left: 10px;
-  padding-right: 10px;
-  height: 40px;
-  border-radius: 10px;
+/* NavBar Styling */
+.navbar {
+  background: #2D3E4D;
+  font-family:  Calibri;
+  padding-right: 15px;
+  padding-left: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navdiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo a {
+  font-size: 35px;
+  font-weight: 600;
   color: white;
-  font-size: 22px;
-  cursor: pointer;
-  margin: 5px;
+}
+.navitems {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 0 8px;
+}
+
+.navdiv li {
+  list-style: none;
+  display: inline-block;
+}
+
+.navdiv li a {
+  transition: all 0.3s ease 0s;
+  color: #edf0f1;
+  font-size: 20px;
+  font-weight: 500;
+  margin-right: 25px;
+}
+
+.navdiv li a:hover {
+  color: #0088A9;
+}
+
+.navdiv button {
+  background-color: rgba(0, 136, 169, 1);
+  margin-left: 10px;
+  border-radius: 50px;
+  padding: 8px;
+  max-width: 60rem;
+  border: none;
+  transition: all 0.3s ease 0s;
+  display: flex;
+  align-items: center;
+}
+
+.navdiv button:hover {
+  background-color: rgba(0, 136, 169, 0.8);
+  transition: 0.25s;
+}
+
+button a {
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 0;
+  margin: 0;
+}
+
+/* Search bar Styling */
+.search{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px;
+  border-radius: 28px;
+  margin-left: 20%;
+  margin-right: 20%;
+  transition: box-shadow 0.25s;
+  box-shadow: 0 0 4px white;
+}
+.search-icon{
+  margin-left: 5%;
+}
+.search:focus-within{
+  transform: scale(1.01);
+  box-shadow: 0 0 4px rgb(11, 185, 254);
+}
+.search:hover{
+  transform: scale(1.01);
+  box-shadow: 0 0 4px rgb(11, 185, 254);
+}
+
+#search-input{
+  width: 60vw;
+  font-size: 16px;
+  color: white;
+  margin-left: 14px;
+  outline: none;
+  border: none;
+  background: transparent;
+}
+
+.search-input::placeholder{
+  color: rgba(0, 0, 0, 0.5)
+}
+
+/* Filter Styling */
+.filter{
+  text-align: center;
+}
+
+.filter button{
+  font-size: 1em;
+  color: white;
+  background-color: transparent;
+  margin-right: 10px;
+  padding: 5px;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  border: 2px solid #ccc;
+}
+
+.filter button:hover{
+  transform: scale(1.1);
+  font-weight: bold;
+  box-shadow: 0 8px 12px rgba(11, 185, 254, 0.4); 
+}
+
+.filterbtn.clicked {
+  background-color: white;  /* Dark blue */
+  color: #1A242D;                /* White text */
+  border-color: white;
+  font-weight: bold;
 }
